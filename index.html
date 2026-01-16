@@ -433,12 +433,19 @@
             color: var(--color-warm-gray);
         }
 
+        .testimonials-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        }
+
+        .testimonials-dots {
+            display: none;
         }
 
         .testimonial-card {
@@ -1465,9 +1472,52 @@
                 justify-content: center;
             }
 
+            .testimonials-carousel {
+                overflow: hidden;
+                margin: 0 -5%;
+                padding: 0 5%;
+            }
+
             .testimonials-grid {
-                grid-template-columns: 1fr;
-                max-width: 550px;
+                display: flex;
+                gap: 1rem;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 0.5rem;
+            }
+
+            .testimonials-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .testimonial-card {
+                flex: 0 0 85%;
+                scroll-snap-align: start;
+                min-width: 85%;
+            }
+
+            .testimonials-dots {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1.25rem;
+            }
+
+            .testimonials-dots .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--color-sage-light);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .testimonials-dots .dot.active {
+                background: var(--color-sage);
+                transform: scale(1.2);
             }
 
             .rates-grid {
@@ -1479,6 +1529,10 @@
             .contact-grid {
                 grid-template-columns: 1fr;
                 gap: 3rem;
+            }
+
+            .about-image-section {
+                display: none;
             }
 
             .services-grid {
@@ -1509,29 +1563,85 @@
                 position: fixed;
                 top: 0;
                 left: 0;
-                right: 0;
-                bottom: 0;
-                background: var(--color-cream);
+                width: 100vw;
+                height: 100vh;
+                background: #FAF8F5;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
-                gap: 2rem;
+                gap: 0.25rem;
+                z-index: 9999;
+                padding: 5rem 2rem 2rem;
+                margin: 0;
+                overflow-y: auto;
             }
 
             .nav-links.active {
-                display: flex;
+                display: flex !important;
+            }
+
+            .nav-links li {
+                list-style: none;
             }
 
             .nav-links a {
                 font-size: 1.1rem;
+                color: var(--color-charcoal);
+                display: block;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-links .nav-cta {
+                margin-top: 0.75rem;
+                padding: 0.75rem 1.75rem;
+                font-size: 1rem;
             }
 
             .mobile-menu-btn {
                 display: block;
+                z-index: 10000;
+                position: relative;
+                background: rgba(250, 248, 245, 0.9);
+                border-radius: 4px;
+                padding: 0.6rem;
+            }
+
+            .mobile-menu-btn span {
+                background: var(--color-charcoal);
             }
 
             .hero-content {
                 padding: 6rem 5% 3rem;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-text {
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(250, 248, 245, 0.5) 50%, rgba(255, 255, 255, 0.4) 100%);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                padding: 1.5rem;
+                border-radius: 12px;
+                text-align: center;
+            }
+
+            .hero-availability {
+                border-left: none;
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .hero-cta-group {
+                justify-content: center;
+            }
+
+            .hero-image-wrapper {
+                order: -1;
+            }
+
+            .hero-image-frame {
+                max-width: 280px;
+                margin: 0 auto;
             }
 
             .hero-tagline {
@@ -1674,31 +1784,41 @@
             <p class="section-label">Client Experiences</p>
             <h2>What Clients Say</h2>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p>Starting therapy felt intimidating for me, but working with Katherine quickly felt grounding and supportive. She created a space where I didn't feel rushed or judged, and that made it easier to open up.</p>
-                <p class="testimonial-author">— Former Client</p>
+        <div class="testimonials-carousel">
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>Starting therapy felt intimidating for me, but working with Katherine quickly felt grounding and supportive. She created a space where I didn't feel rushed or judged, and that made it easier to open up.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>What stood out most was how personalized the work felt. Therapy never felt like a template — Katherine took the time to really understand what I was experiencing and adapted her approach as we went.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>I wasn't sure how telehealth therapy would feel, but sessions were surprisingly personal and connected. Katherine created a space that felt just as supportive as in-person care.</p>
+                    <p class="testimonial-author">— Telehealth Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>I worked with therapists on other platforms, but the care often felt stretched thin. With Katherine, I felt more supported and genuinely attended to.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>As a parent, I appreciated how collaborative and non-judgmental Katherine was. She helped me think through how to support my child in a way that felt realistic and compassionate.</p>
+                    <p class="testimonial-author">— Parent of a Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Therapy with Katherine felt human and responsive. I never felt like I was being pushed in a direction that didn't fit — instead, the work moved at a pace that felt right for me.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
             </div>
-            <div class="testimonial-card">
-                <p>What stood out most was how personalized the work felt. Therapy never felt like a template — Katherine took the time to really understand what I was experiencing and adapted her approach as we went.</p>
-                <p class="testimonial-author">— Adult Client</p>
-            </div>
-            <div class="testimonial-card">
-                <p>I wasn't sure how telehealth therapy would feel, but sessions were surprisingly personal and connected. Katherine created a space that felt just as supportive as in-person care.</p>
-                <p class="testimonial-author">— Telehealth Client</p>
-            </div>
-            <div class="testimonial-card">
-                <p>I worked with therapists on other platforms, but the care often felt stretched thin. With Katherine, I felt more supported and genuinely attended to.</p>
-                <p class="testimonial-author">— Adult Client</p>
-            </div>
-            <div class="testimonial-card">
-                <p>As a parent, I appreciated how collaborative and non-judgmental Katherine was. She helped me think through how to support my child in a way that felt realistic and compassionate.</p>
-                <p class="testimonial-author">— Parent of a Client</p>
-            </div>
-            <div class="testimonial-card">
-                <p>Therapy with Katherine felt human and responsive. I never felt like I was being pushed in a direction that didn't fit — instead, the work moved at a pace that felt right for me.</p>
-                <p class="testimonial-author">— Former Client</p>
-            </div>
+        </div>
+        <div class="testimonials-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
         </div>
     </section>
 
@@ -2299,6 +2419,32 @@
                 nav.style.boxShadow = 'none';
             }
         });
+
+        // Testimonials carousel (mobile only)
+        const testimonialsGrid = document.querySelector('.testimonials-grid');
+        const dots = document.querySelectorAll('.testimonials-dots .dot');
+        
+        if (testimonialsGrid && dots.length > 0) {
+            testimonialsGrid.addEventListener('scroll', () => {
+                const scrollLeft = testimonialsGrid.scrollLeft;
+                const cardWidth = testimonialsGrid.querySelector('.testimonial-card').offsetWidth + 16; // card width + gap
+                const activeIndex = Math.round(scrollLeft / cardWidth);
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === activeIndex);
+                });
+            });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const cardWidth = testimonialsGrid.querySelector('.testimonial-card').offsetWidth + 16;
+                    testimonialsGrid.scrollTo({
+                        left: index * cardWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
 
         // Form submission handling
         document.querySelector('form').addEventListener('submit', function(e) {
