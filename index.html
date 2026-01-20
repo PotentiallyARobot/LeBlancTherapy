@@ -497,6 +497,32 @@
             color: var(--color-sage-dark);
         }
 
+        /* Hide testimonials after first 6 on desktop */
+        .testimonial-card:nth-child(n+7) {
+            display: none;
+        }
+
+        .testimonials-grid.expanded .testimonial-card:nth-child(n+7) {
+            display: block;
+        }
+
+        .testimonials-see-more {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .testimonials-see-more button {
+            gap: 0.5rem;
+        }
+
+        .testimonials-see-more button svg {
+            transition: transform 0.3s ease;
+        }
+
+        .testimonials-see-more button.expanded svg {
+            transform: rotate(180deg);
+        }
+
         /* Carousel Container (for mobile swipe) */
         .carousel-container {
             max-width: 1200px;
@@ -1519,6 +1545,16 @@
                 flex: 0 0 85%;
                 scroll-snap-align: start;
                 min-width: 85%;
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            .testimonial-card:nth-child(n+7) {
+                display: flex !important;
+            }
+
+            .testimonials-see-more {
+                display: none;
             }
 
             .testimonials-dots {
@@ -1960,6 +1996,14 @@
             </div>
         </div>
         <div class="testimonials-dots"></div>
+        <div class="testimonials-see-more">
+            <button class="btn btn-secondary" id="seeMoreBtn" onclick="toggleTestimonials()">
+                See More Reviews
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -2657,6 +2701,24 @@
             setupCarousel('.services-grid', '.services-dots', '.service-card');
             setupCarousel('.extended-care-grid', '.extended-care-dots', '.care-option');
             setupCarousel('.specialties-grid', '.specialties-dots', '.specialty-item');
+        }
+
+        // Toggle testimonials (See More / See Less)
+        function toggleTestimonials() {
+            const grid = document.querySelector('.testimonials-grid');
+            const btn = document.getElementById('seeMoreBtn');
+            const btnText = btn.querySelector('span') || btn.childNodes[0];
+            
+            grid.classList.toggle('expanded');
+            btn.classList.toggle('expanded');
+            
+            if (grid.classList.contains('expanded')) {
+                btn.innerHTML = 'See Less <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+                btn.classList.add('expanded');
+            } else {
+                btn.innerHTML = 'See More Reviews <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+                btn.classList.remove('expanded');
+            }
         }
 
         // Contact form submission handling
