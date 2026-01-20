@@ -1882,39 +1882,84 @@
         <div class="testimonials-carousel">
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <p>Starting therapy felt intimidating for me, but working with Katherine quickly felt grounding and supportive. She created a space where I didn't feel rushed or judged, and that made it easier to open up.</p>
-                    <p class="testimonial-author">— Former Client</p>
-                </div>
-                <div class="testimonial-card">
-                    <p>What stood out most was how personalized the work felt. Therapy never felt like a template — Katherine took the time to really understand what I was experiencing and adapted her approach as we went.</p>
+                    <p>Katie was great. She's a phenomenal listener and gave very helpful advice throughout my sessions.</p>
                     <p class="testimonial-author">— Adult Client</p>
                 </div>
                 <div class="testimonial-card">
-                    <p>I wasn't sure how telehealth therapy would feel, but sessions were surprisingly personal and connected. Katherine created a space that felt just as supportive as in-person care.</p>
+                    <p>Katherine has been great. She took time to listen, understand, and move forward on issues with care.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She is the absolute best. I always felt supported and understood.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katie has been kind and very helpful throughout our sessions.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katherine has been punctual, professional, and thoughtful in providing guidance and support.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katie has been attentive, supportive, and consistently helpful.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She listens carefully and stays engaged, asking questions that deepen understanding.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She helped me tremendously and approached her work with professionalism.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She was great and helped me work through challenges with clarity.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>A great therapist who truly listens and offers meaningful feedback.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She was kind, responsive, and supportive.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katherine helped me during a very complex and difficult time in my life.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katherine really listens. You feel heard and understood.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katie provided thoughtful insights and took the time to really understand me.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>I always felt heard and better able to address challenges after our sessions.</p>
+                    <p class="testimonial-author">— Adult Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>She creates a comfortable and supportive space in every session.</p>
                     <p class="testimonial-author">— Telehealth Client</p>
                 </div>
                 <div class="testimonial-card">
-                    <p>I worked with therapists on other platforms, but the care often felt stretched thin. With Katherine, I felt more supported and genuinely attended to.</p>
+                    <p>Katherine was knowledgeable, gentle, and thoughtful in her approach.</p>
+                    <p class="testimonial-author">— Former Client</p>
+                </div>
+                <div class="testimonial-card">
+                    <p>Katherine is a compassionate listener who clearly cares about her work.</p>
                     <p class="testimonial-author">— Adult Client</p>
                 </div>
                 <div class="testimonial-card">
-                    <p>As a parent, I appreciated how collaborative and non-judgmental Katherine was. She helped me think through how to support my child in a way that felt realistic and compassionate.</p>
-                    <p class="testimonial-author">— Parent of a Client</p>
-                </div>
-                <div class="testimonial-card">
-                    <p>Therapy with Katherine felt human and responsive. I never felt like I was being pushed in a direction that didn't fit — instead, the work moved at a pace that felt right for me.</p>
-                    <p class="testimonial-author">— Former Client</p>
+                    <p>She is insightful, supportive, and highly knowledgeable.</p>
+                    <p class="testimonial-author">— Adult Client</p>
                 </div>
             </div>
         </div>
-        <div class="testimonials-dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-            <span class="dot" data-index="3"></span>
-            <span class="dot" data-index="4"></span>
-            <span class="dot" data-index="5"></span>
-        </div>
+        <div class="testimonials-dots"></div>
     </section>
 
     <!-- About Section -->
@@ -2526,12 +2571,25 @@
 
         // Testimonials carousel (mobile only)
         const testimonialsGrid = document.querySelector('.testimonials-grid');
-        const dots = document.querySelectorAll('.testimonials-dots .dot');
+        const testimonialsDots = document.querySelector('.testimonials-dots');
         
-        if (testimonialsGrid && dots.length > 0) {
+        if (testimonialsGrid && testimonialsDots) {
+            const testimonialCards = testimonialsGrid.querySelectorAll('.testimonial-card');
+            
+            // Create dots dynamically
+            testimonialsDots.innerHTML = '';
+            testimonialCards.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.dataset.index = index;
+                testimonialsDots.appendChild(dot);
+            });
+            
+            const dots = testimonialsDots.querySelectorAll('.dot');
+            
             testimonialsGrid.addEventListener('scroll', () => {
                 const scrollLeft = testimonialsGrid.scrollLeft;
-                const cardWidth = testimonialsGrid.querySelector('.testimonial-card').offsetWidth + 16; // card width + gap
+                const cardWidth = testimonialCards[0].offsetWidth + 16; // card width + gap
                 const activeIndex = Math.round(scrollLeft / cardWidth);
                 
                 dots.forEach((dot, index) => {
@@ -2541,7 +2599,7 @@
 
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    const cardWidth = testimonialsGrid.querySelector('.testimonial-card').offsetWidth + 16;
+                    const cardWidth = testimonialCards[0].offsetWidth + 16;
                     testimonialsGrid.scrollTo({
                         left: index * cardWidth,
                         behavior: 'smooth'
